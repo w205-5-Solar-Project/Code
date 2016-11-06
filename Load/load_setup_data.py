@@ -1,3 +1,11 @@
+############################################################################
+## W205 Section 5 Course Project
+## Vincent Chu
+## File name: load_setup_data.py
+## Description: 
+## Date       : 11/5/2016
+############################################################################
+
 from pyspark import SparkContext
 from pyspark.sql import SQLContext
 from pyspark.sql.types import *
