@@ -1,15 +1,20 @@
-drop table counties;
+drop table county;
 
-create table counties
+create external table county
 (name string,
 population string)
-row format delimited fields terminated by ','
-stored as textfile
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+"separatorChar" = ",",
+"quoteChar" = '"',
+"escapeChar" = '\\'
+)
+STORED AS TEXTFILE
 location '/user/w205/proj/counties_data';
 
-drop table cities;
+drop table city;
 
-create table cities
+create external table city
 (name string,
 type string, 
 county_name string, 
@@ -17,6 +22,11 @@ county_name string,
 sq_mi string, 
 sq_km string, 
 incorporated string)
-row format delimited fields terminated by ','
-stored as textfile
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+"separatorChar" = ",",
+"quoteChar" = '"',
+"escapeChar" = '\\'
+)
+STORED AS TEXTFILE
 location '/user/w205/proj/cities_data';

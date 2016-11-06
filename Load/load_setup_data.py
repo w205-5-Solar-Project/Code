@@ -19,9 +19,9 @@ fields = [StructField(field_name, StringType(), True) for field_name in schemaSt
 schema = StructType(fields)
 
 schemaCountiesData = sqlContext.createDataFrame(counties, schema)
-schemaCountiesData.registerTempTable('counties_tmp')
+schemaCountiesData.registerTempTable('county_tmp')
 
-results = sqlContext.sql('SELECT * FROM counties_tmp')
+results = sqlContext.sql('SELECT * FROM county_tmp')
 results.show()
 
 ###################################################################
@@ -38,7 +38,7 @@ fields = [StructField(field_name, StringType(), True) for field_name in schemaSt
 schema = StructType(fields)
 
 schemaCitiesData = sqlContext.createDataFrame(cities, schema)
-schemaCitiesData.registerTempTable('cities_tmp')
+schemaCitiesData.registerTempTable('city_tmp')
 
-results = sqlContext.sql('SELECT * FROM cities_tmp')
+results = sqlContext.sql('SELECT * FROM city_tmp')
 results.show()
