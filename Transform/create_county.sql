@@ -9,5 +9,5 @@ DROP TABLE county;
 
 CREATE TABLE county AS
 SELECT DISTINCT UPPER(name) AS name,
-cast(population AS LONG) AS population
+cast(population AS BIGINT) AS population
 FROM county_raw;
