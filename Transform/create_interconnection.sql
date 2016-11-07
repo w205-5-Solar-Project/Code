@@ -26,7 +26,7 @@ TO_DATE(from_unixtime(UNIX_TIMESTAMP(app_approved_date, 'mm-dd-yyyy'))) AS app_a
 IF(UPPER(self_installer) = 'YES', 'Self Installer', installer_name) AS installer_name,
 IF(electric_vehicle = 'Yes', 'Y', 
    IF(electric_vehicle IN ('No', 
-      'No, there are no EV Chargers currently installed or planned to be installed'), 'N', NULL) AS  ev, 
+      'No, there are no EV Chargers currently installed or planned to be installed'), 'N', NULL)) AS ev, 
 cast(electric_vehicle_count AS INT) AS ev_count,
 cast(total_system_cost AS DOUBLE) AS total_system_cost,
 inverter_manufacturer_1 AS inverter_mfr
