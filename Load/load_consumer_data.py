@@ -39,7 +39,8 @@ results.show()
 lines = sc.textFile("/user/w205/proj/income_data/household_income.csv")
 
 parts = lines.map(lambda l: l.split(','))
-incomes = parts.map(lambda p: (p[0], p[1], p[2], p[3], p[4]))
+temp = parts.map(lambda p: (p[0], p[1], p[2], p[3], p[4]))
+incomes = temp.replace(' County, California', '')
 
 schemaString = 'geo_id1 geo_id2 county_name 2014_income error_margin'
 fields = [StructField(field_name, StringType(), True) for field_name in schemaString.split()]
