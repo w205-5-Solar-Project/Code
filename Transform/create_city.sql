@@ -8,9 +8,9 @@
 DROP TABLE city;
 
 CREATE TABLE city AS
-SELECT DISTINCT UPPER(name),
-type, 
-UPPER(county_name), 
-cast(sq_mi AS DOUBLE), 
-cast(sq_km AS DOUBLE)
+SELECT DISTINCT UPPER(name) AS name,
+UPPER(type) AS type, 
+UPPER(county_name) AS county_name, 
+cast(sq_mi AS DOUBLE) AS sq_mi, 
+cast(sq_km AS DOUBLE) AS sq_km
 FROM city_raw;

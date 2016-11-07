@@ -8,6 +8,6 @@
 DROP TABLE county;
 
 CREATE TABLE county AS
-SELECT DISTINCT UPPER(name),
-cast(population AS LONG)
+SELECT DISTINCT UPPER(name) AS name,
+cast(population AS LONG) AS population
 FROM county_raw;
