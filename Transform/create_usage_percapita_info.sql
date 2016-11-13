@@ -12,7 +12,7 @@ DROP TABLE usage_info;
 CREATE TABLE usage_info AS
 SELECT usage.county_name, 
 usage.yr_2014, 
-usage.yr_2014 / county.population AS usage_percapita,
+usage.yr_2014 / county.population AS usage_percapita
 FROM usage JOIN county 
 ON usage.name = county.name
 ORDER BY usage_percapita DESC
