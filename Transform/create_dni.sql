@@ -9,7 +9,7 @@ DROP TABLE dni;
 
 CREATE TABLE dni AS
 SELECT DISTINCT 
-UPPER(county) AS county_name,
+UPPER(county) AS county,
 cast(annual_average AS DOUBLE) AS annual_avg_dni_per_day,
 cast(january_average AS DOUBLE) AS january_avg_dni_per_day,
 cast(february_average AS DOUBLE) AS february_avg_dni_per_day,
