@@ -104,15 +104,15 @@ hdfs dfs -put data/consumer/electricity_usage.csv /user/w205/proj/usage_data
 # Load raw data file for income
 ############################################################################
 
-# Make a copy of "household_income.csv", remove the header row and place it in 
+# Make a copy of "percapita_income.csv", remove the header row and place it in 
 # the consumer subdirectory
-tail -n +3 data/zip/Data-master/household_income.csv > data/consumer/household_income.csv
+tail -n +3 data/zip/Data-master/percapita_income.csv > data/consumer/percapita_income.csv
 
-# Create a new subdirectory under /user/w205/proj for household_income.csv in HDFS
+# Create a new subdirectory under /user/w205/proj for percapita_income.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/income_data
 
-# Load the household_income.csv file to HDFS under /user/w205/proj/income_data
-hdfs dfs -put data/consumer/household_income.csv /user/w205/proj/income_data
+# Load the percapita_income.csv file to HDFS under /user/w205/proj/income_data
+hdfs dfs -put data/consumer/percapita_income.csv /user/w205/proj/income_data
 
 ############################################################################
 # Load raw data file for interconnection
@@ -125,7 +125,7 @@ tail -n +2 data/zip/NEM_CurrentlyInterconnectedDataset_2016-08-30.csv > data/sol
 # Create a new subdirectory under /user/w205/proj for interconnection.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/interconn_data
 
-# Load the household_income.csv file to HDFS under /user/w205/proj/interconn_data
+# Load the interconnection.csv file to HDFS under /user/w205/proj/interconn_data
 hdfs dfs -put data/solar/interconnection.csv /user/w205/proj/interconn_data
 
 ############################################################################
