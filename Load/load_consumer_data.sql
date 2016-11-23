@@ -3,7 +3,8 @@
 -- Elizabeth Shulok
 -- File name: load_consumer_data.sql
 -- Description: 
--- Date       : 11/6/2016
+-- Date Created  : 11/6/2016
+-- Modified      : 11/22/2016 - ES: added party affiliation table 
 ----------------------------------------------------------------------------
 drop table usage_raw;
 
@@ -38,3 +39,24 @@ WITH SERDEPROPERTIES (
 )
 STORED AS TEXTFILE
 location '/user/w205/proj/income_data';
+
+drop table party_raw;
+
+create external table party_raw
+(county string,
+population string,
+registered_voters string,
+democratic string,
+republican string,
+spread string,
+other string,
+no_party_pref string)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+"separatorChar" = ",",
+"quoteChar" = '"',
+"escapeChar" = '\\'
+)
+
+STORED AS TEXTFILE
+location '/user/w205/proj/party_data';

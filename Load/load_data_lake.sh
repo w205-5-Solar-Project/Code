@@ -5,6 +5,8 @@
 # Description: sh script to unzip source file load selected raw data files 
 #              to HDFS Data Lake
 # Date       : 11/13/2016
+# Modified   : 11/22/2016 -ES: Changed household_income to percapita_income
+#		               Added code to load party_affiliation                
 ############################################################################
 ############################################################################
 # Setting up directories in local
@@ -113,6 +115,21 @@ hdfs dfs -mkdir /user/w205/proj/income_data
 
 # Load the percapita_income.csv file to HDFS under /user/w205/proj/income_data
 hdfs dfs -put data/consumer/percapita_income.csv /user/w205/proj/income_data
+
+############################################################################
+# Load raw data file for party affiliation
+############################################################################
+
+# Make a copy of "party_affiliation.csv", remove the header row and place it in 
+# the consumer subdirectory
+tail -n +2 data/zip/Data-master/party_affiliation.csv > data/consumer/party_affiliation.csv
+
+# Create a new subdirectory under /user/w205/proj for party_affiliation.csv in HDFS
+hdfs dfs -mkdir /user/w205/proj/party_data
+
+# Load the party_affiliation.csv file to HDFS under /user/w205/proj/party_data
+hdfs dfs -put data/consumer/party_affiliation.csv /user/w205/proj/party_data
+
 
 ############################################################################
 # Load raw data file for interconnection
