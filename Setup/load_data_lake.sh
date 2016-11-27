@@ -2,11 +2,16 @@
 # W205 Section 5 Course Project
 # Vincent Chu
 # File name  : load_data_lake.sh
-# Description: sh script to unzip source file load selected raw data files 
-#              to HDFS Data Lake
+# Description: sh script to wget, unzip and load raw data files to
+#              HDFS Data Lake
 # Date       : 11/13/2016
-# Modified   : 11/22/2016 -ES: Changed household_income to percapita_income
-#		               Added code to load party_affiliation                
+# Modified   : 11/22/2016-ES: Changed household_income to percapita_income
+#		              Added code to load party_affiliation                
+#              11/27/2016-VC: Modified script to avoid moving files around 
+#                             and just work with the directory structure
+#                             inherited the Github repository.  Also added 
+#                             logic to load raw data for household income 
+#                             and distinguished it from per capita income.
 ############################################################################
 ############################################################################
 # Setting up directories in local
@@ -15,31 +20,28 @@
 # Display current directory in local
 pwd
 
-# Recursively remove the project directory in local, if it exists
-rm -rf project
-# Re-create the project directory, which will hold the zip file with flat data files 
-mkdir project
-# Change directory to project
-cd project
+# Create a subdirectory under data to hold the zip files from wget
+rm -rf Data/zip
+mkdir Data/zip
 
-# Re-create the data directory, which will hold the zip file with flat data files 
-mkdir data
-# Re-create the subdirectories to store csv files for consumer, setup, solar and 
-# weather data
-mkdir data/zip
-mkdir data/consumer
-mkdir data/setup  
-mkdir data/solar  
-mkdir data/weather
+# Create a subdirectory under data to hold clean setup data
+rm -rf Data/setup
+mkdir Data/setup
+
+# Create a subdirectory under data to hold clean consumer data
+rm -rf Data/consumer
+mkdir Data/consumer
+
+# Create a subdirectory under data to hold clean solar installation data
+rm -rf Data/solar
+mkdir Data/solar
+
+# Create a subdirectory under data to hold clean weather data
+rm -rf Data/weather
+mkdir Data/weather
 
 # Change directory to zip in local
-cd data/zip
-
-# get the zip file with flat data files for setup, consumer and irradiance data from GitHub
-wget https://github.com/w205-5-Solar-Project/Data/archive/master.zip
-
-# Unzip the contents of master.zip
-unzip master.zip
+cd Data/zip
 
 # get the zip file with interconnection data
 wget http://www.californiadgstats.ca.gov/download/interconnection_nem_pv_projects/NEM_CurrentlyInterconnectedDataset_2016-08-30.zip
@@ -66,13 +68,13 @@ hdfs dfs -mkdir /user/w205/proj
 
 # Make a copy of "ca_cities.csv", remove the header row and place it in 
 # the setup subdirectory
-tail -n +2 data/zip/Data-master/ca_cities.csv > data/setup/ca_cities.csv
+tail -n +2 Data/ca_cities.csv > Data/setup/ca_cities.csv
 
 # Create a new subdirectory under /user/w205/proj for ca_cities.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/cities_data
 
 # Load the ca_cities.csv file to HDFS under /user/w205/proj/cities_data
-hdfs dfs -put data/setup/ca_cities.csv /user/w205/proj/cities_data
+hdfs dfs -put Data/setup/ca_cities.csv /user/w205/proj/cities_data
 
 ############################################################################
 # Load raw data file for counties
@@ -80,13 +82,13 @@ hdfs dfs -put data/setup/ca_cities.csv /user/w205/proj/cities_data
 
 # Make a copy of "ca_counties.csv", remove the header row and place it in 
 # the setup subdirectory
-tail -n +2 data/zip/Data-master/ca_counties.csv > data/setup/ca_counties.csv
+tail -n +2 Data/ca_counties.csv > Data/setup/ca_counties.csv
 
 # Create a new subdirectory under /user/w205/proj for ca_counties.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/counties_data
 
 # Load the ca_counties.csv file to HDFS under /user/w205/proj/counties_data
-hdfs dfs -put data/setup/ca_counties.csv /user/w205/proj/counties_data
+hdfs dfs -put Data/setup/ca_counties.csv /user/w205/proj/counties_data
 
 ############################################################################
 # Load raw data file for usage
@@ -94,27 +96,41 @@ hdfs dfs -put data/setup/ca_counties.csv /user/w205/proj/counties_data
 
 # Make a copy of "electricity_usage.csv", remove the header row and place it in 
 # the consumer subdirectory
-tail -n +2 data/zip/Data-master/electricity_usage.csv > data/consumer/electricity_usage.csv
+tail -n +2 Data/electricity_usage.csv > Data/consumer/electricity_usage.csv
 
 # Create a new subdirectory under /user/w205/proj for electricity_usage.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/usage_data
 
 # Load the ca_counties.csv file to HDFS under /user/w205/proj/counties_data
-hdfs dfs -put data/consumer/electricity_usage.csv /user/w205/proj/usage_data
+hdfs dfs -put Data/consumer/electricity_usage.csv /user/w205/proj/usage_data
 
 ############################################################################
-# Load raw data file for income
+# Load raw data file for per capita income
 ############################################################################
 
 # Make a copy of "percapita_income.csv", remove the header row and place it in 
 # the consumer subdirectory
-tail -n +3 data/zip/Data-master/percapita_income.csv > data/consumer/percapita_income.csv
+tail -n +3 Data/percapita_income.csv > Data/consumer/percapita_income.csv
 
 # Create a new subdirectory under /user/w205/proj for percapita_income.csv in HDFS
-hdfs dfs -mkdir /user/w205/proj/income_data
+hdfs dfs -mkdir /user/w205/proj/percapita_income_data
 
-# Load the percapita_income.csv file to HDFS under /user/w205/proj/income_data
-hdfs dfs -put data/consumer/percapita_income.csv /user/w205/proj/income_data
+# Load the percapita_income.csv file to HDFS under /user/w205/proj/percapita_income_data
+hdfs dfs -put Data/consumer/percapita_income.csv /user/w205/proj/percapita_income_data
+
+############################################################################
+# Load raw data file for household income
+############################################################################
+
+# Make a copy of "household_income.csv", remove the header row and place it in 
+# the consumer subdirectory
+tail -n +3 Data/household_income.csv > Data/consumer/household_income.csv
+
+# Create a new subdirectory under /user/w205/proj for household_income.csv in HDFS
+hdfs dfs -mkdir /user/w205/proj/household_income_data
+
+# Load the household_income.csv file to HDFS under /user/w205/proj/household_income_data
+hdfs dfs -put Data/consumer/household_income.csv /user/w205/proj/household_income_data
 
 ############################################################################
 # Load raw data file for party affiliation
@@ -122,13 +138,13 @@ hdfs dfs -put data/consumer/percapita_income.csv /user/w205/proj/income_data
 
 # Make a copy of "party_affiliation.csv", remove the header row and place it in 
 # the consumer subdirectory
-tail -n +2 data/zip/Data-master/party_affiliation.csv > data/consumer/party_affiliation.csv
+tail -n +2 Data/party_affiliation.csv > Data/consumer/party_affiliation.csv
 
 # Create a new subdirectory under /user/w205/proj for party_affiliation.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/party_data
 
 # Load the party_affiliation.csv file to HDFS under /user/w205/proj/party_data
-hdfs dfs -put data/consumer/party_affiliation.csv /user/w205/proj/party_data
+hdfs dfs -put Data/consumer/party_affiliation.csv /user/w205/proj/party_data
 
 
 ############################################################################
@@ -137,13 +153,13 @@ hdfs dfs -put data/consumer/party_affiliation.csv /user/w205/proj/party_data
 
 # Make a copy of "NEM_CurrentlyInterconnectedDataset_2016-08-30.csv", remove 
 # the header row and place it in the solar subdirectory
-tail -n +2 data/zip/NEM_CurrentlyInterconnectedDataset_2016-08-30.csv > data/solar/interconnection.csv
+tail -n +2 Data/zip/NEM_CurrentlyInterconnectedDataset_2016-08-30.csv > Data/solar/interconnection.csv
 
 # Create a new subdirectory under /user/w205/proj for interconnection.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/interconn_data
 
 # Load the interconnection.csv file to HDFS under /user/w205/proj/interconn_data
-hdfs dfs -put data/solar/interconnection.csv /user/w205/proj/interconn_data
+hdfs dfs -put Data/solar/interconnection.csv /user/w205/proj/interconn_data
 
 ############################################################################
 # Load raw data file for irradience DNI
@@ -151,13 +167,13 @@ hdfs dfs -put data/solar/interconnection.csv /user/w205/proj/interconn_data
 
 # Make a copy of "dni_by_county.csv", remove the header row and place it in 
 # the weather subdirectory
-tail -n +2 data/zip/Data-master/dni_by_county.csv > data/weather/dni_by_county.csv
+tail -n +2 Data/dni_by_county.csv > Data/weather/dni_by_county.csv
 
 # Create a new subdirectory under /user/w205/proj for dni_by_county.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/dni_data
 
 # Load the dni_by_county.csv file to HDFS under /user/w205/proj/dni_data
-hdfs dfs -put data/weather/dni_by_county.csv /user/w205/proj/dni_data
+hdfs dfs -put Data/weather/dni_by_county.csv /user/w205/proj/dni_data
 
 ############################################################################
 # Load raw data file for irradience GHI
@@ -165,10 +181,10 @@ hdfs dfs -put data/weather/dni_by_county.csv /user/w205/proj/dni_data
 
 # Make a copy of "ghi_by_county.csv", remove the header row and place it in 
 # the weather subdirectory
-tail -n +2 data/zip/Data-master/ghi_by_county.csv > data/weather/ghi_by_county.csv
+tail -n +2 Data/ghi_by_county.csv > Data/weather/ghi_by_county.csv
 
 # Create a new subdirectory under /user/w205/proj for ghi_by_county.csv in HDFS
 hdfs dfs -mkdir /user/w205/proj/ghi_data
 
 # Load the ghi_by_county.csv file to HDFS under /user/w205/proj/ghi_data
-hdfs dfs -put data/weather/ghi_by_county.csv /user/w205/proj/ghi_data
+hdfs dfs -put Data/weather/ghi_by_county.csv /user/w205/proj/ghi_data
