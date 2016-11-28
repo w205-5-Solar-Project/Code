@@ -17,7 +17,8 @@
 # Setting up directories in local
 ############################################################################
 
-# Display current directory in local
+# Change to the parent directory for the Solar project
+cd /home/w205/Solar
 pwd
 
 # Create a subdirectory under data to hold the zip files from wget

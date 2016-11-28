@@ -23,9 +23,9 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 location '/user/w205/proj/usage_data';
 
-drop table income_raw;
+drop table percapita_income_raw;
 
-create external table income_raw
+create external table percapita_income_raw
 (geo_id1 string,
 geo_id2 string, 
 county_name string, 
@@ -38,7 +38,24 @@ WITH SERDEPROPERTIES (
 "escapeChar" = '\\'
 )
 STORED AS TEXTFILE
-location '/user/w205/proj/income_data';
+location '/user/w205/proj/percapita_income_data';
+
+drop table household_income_raw;
+
+create external table household_income_raw
+(geo_id1 string,
+geo_id2 string, 
+county_name string, 
+2014_income string, 
+error_margin string)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES (
+"separatorChar" = ",",
+"quoteChar" = '"',
+"escapeChar" = '\\'
+)
+STORED AS TEXTFILE
+location '/user/w205/proj/household_income_data';
 
 drop table party_raw;
 
