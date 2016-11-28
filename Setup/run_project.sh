@@ -6,11 +6,10 @@
 # Date       : 11/24/2016
 ############################################################################
 
+pwd
+
 echo $PATH
 export PATH=$PATH:/home/w205/spark15/bin
 
-cd /home/w205/
-git clone https://github.com/w205-5-Solar-Project/Solar.git
-
-bash /home/w205/Solar/Setup/load_data_lake.sh
-bash /home/w205/Solar/Setup/create_sparksql_tables.sh
+bash Setup/load_data_lake.sh
+bash Setup/create_sparksql_tables.sh
