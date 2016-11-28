@@ -10,6 +10,13 @@
 ############################################################################
 # Start-up and Installation
 ############################################################################
+$ chmod a+rwx /data
+$ wget https://s3.amazonaws.com/ucbdatasciencew205/setup_ucb_complete_plus_postgres.sh
+$ chmod +x ./setup_ucb_complete_plus_postgres.sh
+$ ./setup_ucb_complete_plus_postgres.sh <the device path from EC2>
+# Change verification setting to false in hive-site.xml
+$ cp /data/hadoop/hive/conf/hive-site.xml $SPARK_HOME/conf/.
+
 $ /data/start_postgres.sh
 $ pip install psycopg2
 $ pip install -U scikit-learn
