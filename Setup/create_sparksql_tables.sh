@@ -6,8 +6,7 @@
 # Date       : 11/24/2016
 ############################################################################
 
-# Change to the parent directory for the Solar project
-cd /home/w205/Solar
+# Display current working directory
 pwd
 
 ############################################################################
