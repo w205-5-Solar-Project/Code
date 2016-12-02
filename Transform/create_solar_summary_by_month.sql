@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------
 -- W205 Section 5 Course Project
--- Vincent Chu
+-- Elizabeth Shulok
 -- File name: create_solar_summary_by_month.sql
 -- Description: 
 -- Date       : 12/01/2016
