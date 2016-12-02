@@ -4,6 +4,7 @@
 -- File name: create_dni.sql
 -- Description: 
 -- Date       : 11/13/2016
+-- Modified   : 12/01/2016-ES: added _per_day to december field
 ----------------------------------------------------------------------------
 DROP TABLE dni;
 
@@ -22,6 +23,6 @@ cast(august_average AS DOUBLE) AS august_avg_dni_per_day,
 cast(september_average AS DOUBLE) AS september_avg_dni_per_day,
 cast(october_average AS DOUBLE) AS october_avg_dni_per_day,
 cast(november_average AS DOUBLE) AS november_avg_dni_per_day,
-cast(december_average AS DOUBLE) AS december_average
+cast(december_average AS DOUBLE) AS december_average_per_day
 FROM dni_raw
 WHERE state = 'CA';
