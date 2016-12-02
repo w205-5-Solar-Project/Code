@@ -4,6 +4,7 @@
 # File name  : create_sparksql_tables.sh
 # Description: sh script to 
 # Date       : 11/24/2016
+# Modified   : 12/02/2016-ES: Added created of solar summary tables
 ############################################################################
 
 # Display current working directory
@@ -32,3 +33,5 @@ spark-sql -f Transform/create_interconnection.sql
 spark-sql -f Transform/create_interconnection_by_county.sql
 spark-sql -f Transform/create_county_info.sql
 spark-sql -f Transform/create_usage_percapita_info.sql
+spark-sql -f Transform/create_solar_summary_by_year.sql
+spark-sql -f Transform/create_solar_summary_by_month.sql
