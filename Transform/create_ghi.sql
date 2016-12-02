@@ -23,6 +23,6 @@ cast(august_average AS DOUBLE) AS august_avg_ghi_per_day,
 cast(september_average AS DOUBLE) AS september_avg_ghi_per_day,
 cast(october_average AS DOUBLE) AS october_avg_ghi_per_day,
 cast(november_average AS DOUBLE) AS november_avg_ghi_per_day,
-cast(december_average AS DOUBLE) AS december_average_per_day
+cast(december_average AS DOUBLE) AS december_average_ghi_per_day
 FROM ghi_raw
 WHERE state = 'CA';

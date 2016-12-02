@@ -23,6 +23,6 @@ cast(august_average AS DOUBLE) AS august_avg_dni_per_day,
 cast(september_average AS DOUBLE) AS september_avg_dni_per_day,
 cast(october_average AS DOUBLE) AS october_avg_dni_per_day,
 cast(november_average AS DOUBLE) AS november_avg_dni_per_day,
-cast(december_average AS DOUBLE) AS december_average_per_day
+cast(december_average AS DOUBLE) AS december_average_dni_per_day
 FROM dni_raw
 WHERE state = 'CA';
