@@ -9,6 +9,8 @@
 --			       Changed 'SELECT interconn.annual_avg_dhi_per_day' to
 --				       'SELECT ghi.annual_avg_ghi_per_day'
 --					Added county name to the output table
+--	      : 12/02/2016-ES: Resolved duplicate column names
+--			       Changed first JOIN statement
 ----------------------------------------------------------------------------
 
 -- Sum of installed solar capacity, number of EVs, 
@@ -27,10 +29,10 @@ interconn.total_size_ac,
 interconn.total_ev_count,
 interconn.avg_system_cost, 
 usage.yr_2014_usage_percapita, 
-percapita_income.2014_income, 
-household_income.2014_income
+percapita_income.2014_income AS 2014_percapita_income, 
+household_income.2014_income AS 2014_household_income
 FROM interconnection_by_county AS interconn 
-JOIN ghi ON interconn.county = ghi.county
+JOIN ghi ON ghi.county = interconn.county
 JOIN usage_info AS usage ON usage.county_name = interconn.county
 JOIN percapita_income ON percapita_income.county_name = interconn.county
 JOIN household_income ON household_income.county_name = interconn.county

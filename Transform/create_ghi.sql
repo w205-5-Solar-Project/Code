@@ -5,6 +5,7 @@
 -- Description: 
 -- Date       : 11/13/2016
 -- Modified   : 12/01/2016-ES: changed "dni" to "ghi" and added _per_day to december field
+--	      : 12/02/2016-ES: fixed last field name to match same pattern as previous fields
 ----------------------------------------------------------------------------
 DROP TABLE ghi;
 
@@ -23,6 +24,6 @@ cast(august_average AS DOUBLE) AS august_avg_ghi_per_day,
 cast(september_average AS DOUBLE) AS september_avg_ghi_per_day,
 cast(october_average AS DOUBLE) AS october_avg_ghi_per_day,
 cast(november_average AS DOUBLE) AS november_avg_ghi_per_day,
-cast(december_average AS DOUBLE) AS december_average_ghi_per_day
+cast(december_average AS DOUBLE) AS december_avg_ghi_per_day
 FROM ghi_raw
 WHERE state = 'CA';
