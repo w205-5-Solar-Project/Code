@@ -23,6 +23,23 @@ $ pip install -U scikit-learn
 $ su - w205 
 
 ############################################################################
+# Steps for setting up backend data store for spark-sql
+# (so that both HIVE and SPARK-SQL will point to the same metastore)
+############################################################################
+
+1) Change the value of the hive.metastore.schema.verification to false in 
+the /data/hadoop/hive/conf/hive-site.xml file (see below):
+
+<property>
+<name>hive.metastore.schema.verification</name>
+<value>false</value>
+</property>
+
+2) Copy the hive-site.xml  to the $SPARK_HOME/conf directory:
+
+cp /data/hadoop/hive/conf/hive-site.xml $SPARK_HOME/conf/.
+
+############################################################################
 # Steps to run the Solar Course Project using git clone
 ############################################################################
 $ cd /home/w205/
