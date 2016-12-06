@@ -12,6 +12,8 @@ pwd
 
 ############################################################################
 # Run SQL scripts to create raw data tables
+# Need to include the --driver-class-path option in the spark-sql command 
+# spark-sql --driver-class-path /usr/share/java/postgresql-jdbc.jar
 ############################################################################
 spark-sql -f Load/load_weather_data.sql
 spark-sql -f Load/load_setup_data.sql
@@ -20,6 +22,8 @@ spark-sql -f Load/load_consumer_data.sql
 
 ############################################################################
 # Run SQL scripts to create transformed data tables
+# Need to include the --driver-class-path option in the spark-sql command 
+# spark-sql --driver-class-path /usr/share/java/postgresql-jdbc.jar
 ############################################################################
 spark-sql -f Transform/create_county.sql  
 spark-sql -f Transform/create_city.sql    
