@@ -28,9 +28,11 @@ hive -f Transform/create_usage.sql
 hive -f Transform/create_party_affiliation.sql
 hive -f Transform/create_dni.sql
 hive -f Transform/create_ghi.sql
+hive -f Transform/create_spi.sql
 hive -f Transform/create_interconnection.sql
 hive -f Transform/create_interconnection_by_county.sql
 hive -f Transform/create_county_info.sql
 hive -f Transform/create_usage_percapita_info.sql
 hive -f Transform/create_solar_summary_by_year.sql
 hive -f Transform/create_solar_summary_by_month.sql
+hive -f Transform/create_solar_generation_by_county.sql
