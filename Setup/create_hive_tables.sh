@@ -2,8 +2,9 @@
 # W205 Section 5 Course Project
 # Vincent Chu
 # File name  : create_hive_tables.sh
-# Description: sh script to 
+# Description: sh script to load tables into hive metastore
 # Date       : 12/07/2016
+# Modified   : Removed load command for dni
 ############################################################################
 
 # Display current working directory
@@ -26,7 +27,6 @@ hive -f Transform/create_percapita_income.sql
 hive -f Transform/create_household_income.sql
 hive -f Transform/create_usage.sql
 hive -f Transform/create_party_affiliation.sql
-hive -f Transform/create_dni.sql
 hive -f Transform/create_ghi.sql
 hive -f Transform/create_spi.sql
 hive -f Transform/create_interconnection.sql
