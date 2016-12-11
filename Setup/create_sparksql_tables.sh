@@ -2,7 +2,7 @@
 # W205 Section 5 Course Project
 # Vincent Chu
 # File name  : create_sparksql_tables.sh
-# Description: sh script to 
+# Description: sh script to load tables into spark-sql metastore
 # Date       : 11/24/2016
 # Modified   : 12/02/2016-ES: Added creation of solar summary tables
 #	     : 12/07/2016-ES: Added create_solar_generation_by_county.sql 
